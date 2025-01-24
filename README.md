@@ -12,8 +12,8 @@ API REST desenvolvida com FastAPI em Python.
 
 ### Clonando o repositório
 ```bash
-git clone [url-do-seu-repositorio]
-cd [nome-do-diretorio]
+git clone [https://github.com/samuelcamargo/cabala-api-py]
+cd [cabala-api-py]
 ```
 
 ### Configurando o Ambiente Virtual
