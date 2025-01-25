@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.controllers.cabala_controller import router as cabala_router
 
 app = FastAPI(
-    title="Minha API",
-    description="Descrição da minha API",
+    title="CABALA API",
+    description="API para cálculos de CABALA",
     version="1.0.0"
 )
 
@@ -16,10 +17,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-async def root():
-    return {"mensagem": "Bem-vindo à minha API!"}
-
-@app.get("/hello/{nome}")
-async def hello(nome: str):
-    return {"mensagem": f"Olá, {nome}!"} 
+# Incluindo as rotas
+app.include_router(cabala_router, tags=["Cabala"]) 

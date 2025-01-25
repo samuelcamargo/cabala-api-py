@@ -1,6 +1,6 @@
 # CABALA FastAPI Project
 
-API REST desenvolvida com FastAPI em Python.
+API REST desenvolvida com FastAPI em Python para cálculos de Cabala.
 
 ## 📋 Pré-requisitos
 
@@ -12,8 +12,8 @@ API REST desenvolvida com FastAPI em Python.
 
 ### Clonando o repositório
 ```bash
-git clone [https://github.com/samuelcamargo/cabala-api-py]
-cd [cabala-api-py]
+git clone https://github.com/samuelcamargo/cabala-api-py
+cd cabala-api-py
 ```
 
 ### Configurando o Ambiente Virtual
@@ -57,39 +57,87 @@ Após iniciar o servidor, você pode acessar:
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
-## 🛣️ Rotas Disponíveis
+## 🛣️ Endpoints Disponíveis
 
-- `GET /`: Retorna mensagem de boas-vindas
-- `GET /hello/{nome}`: Retorna uma saudação personalizada
+### 1. Rota Principal
+- **GET /** 
+  - Retorna mensagem de boas-vindas
+  - Exemplo: `curl http://localhost:8000/`
 
-## 💻 Exemplos de Uso
+### 2. Cálculo de Cabala
+- **GET /cabala/{data}**
+  - Calcula os números da Cabala baseado na data fornecida
+  - Aceita datas nos formatos: DD/MM/AAAA ou DD-MM-AAAA
+  - Exemplo: `curl http://localhost:8000/cabala/10-02-1989`
+  - Retorno:
+    ```json
+    {
+      "data": "10/02/1989",
+      "dinheiro": {"numero": 5, "orixa": "Oxum"},
+      "pessoas": {"numero": 8, "orixa": "Ejionilê"},
+      "coracao": {"numero": 13, "orixa": "Nanã"},
+      "racional": {"numero": 7, "orixa": "Obaluaê"},
+      "destino": {"numero": 11, "orixa": "Owonrin"},
+      "fe": {"numero": 3, "orixa": "Ogum"}
+    }
+    ```
 
-### Rota de Boas-vindas
-```bash
-curl http://localhost:8000/
+## 🏗️ Arquitetura do Projeto
+
+O projeto segue os princípios da Clean Architecture, organizando o código em camadas bem definidas:
+
+```
+app/
+├── __init__.py
+├── main.py                 # Configuração principal da aplicação
+├── controllers/            # Controladores da API
+│   ├── __init__.py
+│   └── cabala_controller.py
+├── use_cases/             # Regras de negócio da aplicação
+│   ├── __init__.py
+│   └── calcular_cabala.py
+├── entities/              # Entidades do domínio
+│   ├── __init__.py
+│   └── orixa.py
+├── repositories/          # Camada de acesso a dados
+│   ├── __init__.py
+│   └── orixa_repository.py
+└── schemas/              # Schemas de validação e serialização
+    ├── __init__.py
+    └── cabala_schema.py
 ```
 
-### Rota de Saudação
-```bash
-curl http://localhost:8000/hello/seu-nome
-```
+### Descrição das Camadas
+
+1. **Controllers (controllers/)**
+   - Responsável por receber as requisições HTTP
+   - Define os endpoints da API
+   - Gerencia dependências usando FastAPI
+
+2. **Use Cases (use_cases/)**
+   - Contém a lógica de negócio da aplicação
+   - Implementa os casos de uso específicos
+   - Realiza os cálculos da Cabala
+
+3. **Entities (entities/)**
+   - Define as entidades principais do domínio
+   - Representa os objetos fundamentais (ex: Orixá)
+
+4. **Repositories (repositories/)**
+   - Gerencia o acesso aos dados
+   - Fornece uma interface para acessar os Orixás
+   - Pode ser expandido para usar banco de dados
+
+5. **Schemas (schemas/)**
+   - Define os modelos de dados para request/response
+   - Realiza validação dos dados de entrada
+   - Garante a tipagem correta dos dados
 
 ## 🛠️ Tecnologias Utilizadas
 
-- FastAPI
-- Uvicorn
-- Pydantic
-
-## ⚙️ Variáveis de Ambiente
-
-Por padrão, o servidor roda em:
-- Host: localhost
-- Porta: 8000
-
-Para alterar estas configurações, você pode executar:
-```bash
-uvicorn app.main:app --host 0.0.0.0 --port 80 --reload
-```
+- FastAPI: Framework web moderno e rápido
+- Pydantic: Validação de dados e serialização
+- Uvicorn: Servidor ASGI de alta performance
 
 ## 🤝 Contribuindo
 
