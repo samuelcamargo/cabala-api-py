@@ -67,7 +67,7 @@ Após iniciar o servidor, você pode acessar:
 ### 2. Cálculo de Cabala
 - **GET /cabala/{data}**
   - Calcula os números da Cabala baseado na data fornecida
-  - Aceita datas nos formatos: DD/MM/AAAA ou DD-MM-AAAA
+  - Aceita datas nos formatos: DD-MM-AAAA
   - Exemplo: `curl http://localhost:8000/cabala/10-02-1989`
   - Retorno:
     ```json
